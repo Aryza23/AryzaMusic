@@ -5,8 +5,6 @@ from os import listdir, mkdir
 
 import heroku3
 from aiohttp import ClientSession
-from git import Repo
-from git.exc import GitCommandError, InvalidGitRepositoryError
 from motor.motor_asyncio import AsyncIOMotorClient as Bot
 from rich.console import Console
 from rich.table import Table
@@ -26,9 +24,6 @@ loop = asyncio.get_event_loop()
 console = Console()
 
 
-### Heroku Shit
-UPSTREAM_BRANCH = UPSTREAM_BRANCH
-UPSTREAM_REPO = UPSTREAM_REPO
 
 ### Modules
 MOD_LOAD = []
@@ -222,39 +217,6 @@ async def initiate_bot():
                 )
         SUDOERS = (SUDOERS + sudoers + OWNER_ID) if sudoers else SUDOERS
         console.print("└ [green]Loaded Sudo Users Successfully!\n")
-        try:
-            repo = Repo()
-        except GitCommandError:
-            console.print("┌ [red] Checking Git Updates!")
-            console.print("└ [red]Git Command Error\n")
-            return
-        except InvalidGitRepositoryError:
-            console.print("┌ [red] Checking Git Updates!")
-            repo = Repo.init()
-            if "origin" in repo.remotes:
-                origin = repo.remote("origin")
-            else:
-                origin = repo.create_remote("origin", UPSTREAM_REPO)
-            origin.fetch()
-            repo.create_head(UPSTREAM_BRANCH, origin.refs[UPSTREAM_BRANCH])
-            repo.heads[UPSTREAM_BRANCH].set_tracking_branch(
-                origin.refs[UPSTREAM_BRANCH]
-            )
-            repo.heads[UPSTREAM_BRANCH].checkout(True)
-            try:
-                repo.create_remote("origin", UPSTREAM_REPO)
-            except BaseException:
-                pass
-            nrs = repo.remote("origin")
-            nrs.fetch(UPSTREAM_BRANCH)
-            try:
-                nrs.pull(UPSTREAM_BRANCH)
-            except GitCommandError:
-                repo.git.reset("--hard", "FETCH_HEAD")
-            await install_requirements(
-                "pip3 install --no-cache-dir -r requirements.txt"
-            )
-            console.print("└ [red]Git Client Update Completed\n")
 
 
 loop.run_until_complete(initiate_bot())
