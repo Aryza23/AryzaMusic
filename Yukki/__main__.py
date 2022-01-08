@@ -82,7 +82,7 @@ async def initiate_bot():
             status="[bold blue]Importation Completed!",
         )
     console.print(
-        "[bold green]Congrats!! Yukki Music Bot has started successfully!\n"
+        "[bold green]Congrats!! Idzeroid Music Bot has started successfully!\n"
     )
     try:
         await app.send_message(
@@ -115,8 +115,8 @@ async def initiate_bot():
             console.print(f"\n[red]Stopping Bot")
             return
         try:
-            await ASS_CLI_1.join_chat("OfficialYukki")
-            await ASS_CLI_1.join_chat("YukkiSupport")
+            await ASS_CLI_1.join_chat("idzeroid")
+            await ASS_CLI_1.join_chat("satanicsociety")
         except:
             pass
         console.print(f"├[red] Assistant 1 Started as {ASSNAME1}!")
@@ -134,8 +134,8 @@ async def initiate_bot():
             console.print(f"\n[red]Stopping Bot")
             return
         try:
-            await ASS_CLI_2.join_chat("OfficialYukki")
-            await ASS_CLI_2.join_chat("YukkiSupport")
+            await ASS_CLI_2.join_chat("idzeroid")
+            await ASS_CLI_2.join_chat("satanicsociety")
         except:
             pass
         console.print(f"├[red] Assistant 2 Started as {ASSNAME2}!")
@@ -153,8 +153,8 @@ async def initiate_bot():
             console.print(f"\n[red]Stopping Bot")
             return
         try:
-            await ASS_CLI_3.join_chat("OfficialYukki")
-            await ASS_CLI_3.join_chat("YukkiSupport")
+            await ASS_CLI_3.join_chat("idzeroid")
+            await ASS_CLI_3.join_chat("satanicsociety")
         except:
             pass
         console.print(f"├[red] Assistant 3 Started as {ASSNAME3}!")
@@ -172,8 +172,8 @@ async def initiate_bot():
             console.print(f"\n[red]Stopping Bot")
             return
         try:
-            await ASS_CLI_4.join_chat("OfficialYukki")
-            await ASS_CLI_4.join_chat("YukkiSupport")
+            await ASS_CLI_4.join_chat("idzeroid")
+            await ASS_CLI_4.join_chat("satanicsociety")
         except:
             pass
         console.print(f"├[red] Assistant 4 Started as {ASSNAME4}!")
@@ -191,8 +191,8 @@ async def initiate_bot():
             console.print(f"\n[red]Stopping Bot")
             return
         try:
-            await ASS_CLI_5.join_chat("OfficialYukki")
-            await ASS_CLI_5.join_chat("YukkiSupport")
+            await ASS_CLI_5.join_chat("idzeroid")
+            await ASS_CLI_5.join_chat("satanicsociety")
         except:
             pass
         console.print(f"├[red] Assistant 5 Started as {ASSNAME5}!")
@@ -210,11 +210,11 @@ async def initiate_bot():
             console.print(f"\n[red]Stopping Bot")
             return
         try:
-            await LOG_CLIENT.join_chat("OfficialYukki")
-            await LOG_CLIENT.join_chat("YukkiSupport")
+            await LOG_CLIENT.join_chat("idzeroid")
+            await LOG_CLIENT.join_chat("satanicsociety")
         except:
             pass
-    console.print(f"└[red] Yukki Music Bot Boot Completed.")
+    console.print(f"└[red] Idzeroid Music Bot Boot Completed.")
     if STRING1 != "None":
         await pytgcalls1.start()
     if STRING2 != "None":
@@ -228,18 +228,6 @@ async def initiate_bot():
     await idle()
     console.print(f"\n[red]Stopping Bot")
 
-
-home_text_pm = f"""Hello ,
-My name is {BOT_NAME}.
-I'm Telegram Voice Chat Audio with some useful features.
-
-All commands can be used with: / """
-
-
-@app.on_message(filters.command("help") & filters.private)
-async def help_command(_, message):
-    text, keyboard = await help_parser(message.from_user.mention)
-    await app.send_message(message.chat.id, text, reply_markup=keyboard)
 
 
 @app.on_message(filters.command("start") & filters.private)
@@ -289,14 +277,6 @@ async def start_command(_, message):
                     LOG_GROUP_ID,
                     f"{message.from_user.mention} has just started bot to check <code>SUDOLIST</code>\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
                 )
-        if name == "help":
-            text, keyboard = await help_parser(message.from_user.mention)
-            await message.delete()
-            return await app.send_text(
-                message.chat.id,
-                text,
-                reply_markup=keyboard,
-            )
         if name[0] == "i":
             m = await message.reply_text("🔎 Fetching Info!")
             query = (str(name)).replace("info_", "", 1)
@@ -353,11 +333,6 @@ async def start_command(_, message):
                     f"{message.from_user.mention} has just started bot to check <code>VIDEO INFORMATION</code>\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
                 )
             return
-    out = private_panel()
-    await message.reply_text(
-        home_text_pm,
-        reply_markup=InlineKeyboardMarkup(out[1]),
-    )
     if await is_on_off(5):
         sender_id = message.from_user.id
         sender_name = message.from_user.first_name
@@ -367,116 +342,6 @@ async def start_command(_, message):
             f"{message.from_user.mention} has just started Bot.\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
         )
     return
-
-
-async def help_parser(name, keyboard=None):
-    if not keyboard:
-        keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
-    return (
-        """Hello {first_name},
-
-Click on the buttons for more information.
-
-All commands can be used with: /
-""".format(
-            first_name=name
-        ),
-        keyboard,
-    )
-
-
-@app.on_callback_query(filters.regex("shikhar"))
-async def shikhar(_, CallbackQuery):
-    text, keyboard = await help_parser(CallbackQuery.from_user.mention)
-    await CallbackQuery.message.edit(text, reply_markup=keyboard)
-
-
-@app.on_callback_query(filters.regex(r"help_(.*?)"))
-async def help_button(client, query):
-    home_match = re.match(r"help_home\((.+?)\)", query.data)
-    mod_match = re.match(r"help_module\((.+?)\)", query.data)
-    prev_match = re.match(r"help_prev\((.+?)\)", query.data)
-    next_match = re.match(r"help_next\((.+?)\)", query.data)
-    back_match = re.match(r"help_back", query.data)
-    create_match = re.match(r"help_create", query.data)
-    top_text = f"""Hello {query.from_user.first_name},
-
-Click on the buttons for more information.
-
-All commands can be used with: /
- """
-    if mod_match:
-        module = mod_match.group(1)
-        text = (
-            "{} **{}**:\n".format(
-                "Here is the help for", HELPABLE[module].__MODULE__
-            )
-            + HELPABLE[module].__HELP__
-        )
-        key = InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(
-                        text="↪️ Back", callback_data="help_back"
-                    ),
-                    InlineKeyboardButton(
-                        text="🔄 Close", callback_data="close"
-                    ),
-                ],
-            ]
-        )
-
-        await query.message.edit(
-            text=text,
-            reply_markup=key,
-            disable_web_page_preview=True,
-        )
-    elif home_match:
-        out = private_panel()
-        await app.send_message(
-            query.from_user.id,
-            text=home_text_pm,
-            reply_markup=InlineKeyboardMarkup(out[1]),
-        )
-        await query.message.delete()
-    elif prev_match:
-        curr_page = int(prev_match.group(1))
-        await query.message.edit(
-            text=top_text,
-            reply_markup=InlineKeyboardMarkup(
-                paginate_modules(curr_page - 1, HELPABLE, "help")
-            ),
-            disable_web_page_preview=True,
-        )
-
-    elif next_match:
-        next_page = int(next_match.group(1))
-        await query.message.edit(
-            text=top_text,
-            reply_markup=InlineKeyboardMarkup(
-                paginate_modules(next_page + 1, HELPABLE, "help")
-            ),
-            disable_web_page_preview=True,
-        )
-
-    elif back_match:
-        await query.message.edit(
-            text=top_text,
-            reply_markup=InlineKeyboardMarkup(
-                paginate_modules(0, HELPABLE, "help")
-            ),
-            disable_web_page_preview=True,
-        )
-
-    elif create_match:
-        text, keyboard = await help_parser(query)
-        await query.message.edit(
-            text=text,
-            reply_markup=keyboard,
-            disable_web_page_preview=True,
-        )
-
-    return await client.answer_callback_query(query.id)
 
 
 if __name__ == "__main__":
