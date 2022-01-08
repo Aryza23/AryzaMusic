@@ -28,7 +28,6 @@ from Yukki.Utilities.inline import paginate_modules
 
 loop = asyncio.get_event_loop()
 console = Console()
-HELPABLE = {}
 
 
 async def initiate_bot():
@@ -67,13 +66,13 @@ async def initiate_bot():
                 and imported_module.__MODULE__
             ):
                 imported_module.__MODULE__ = imported_module.__MODULE__
-                if (
-                    hasattr(imported_module, "__HELP__")
-                    and imported_module.__HELP__
-                ):
-                    HELPABLE[
-                        imported_module.__MODULE__.lower()
-                    ] = imported_module
+            #    if (
+            #        hasattr(imported_module, "__HELP__")
+            #        and imported_module.__HELP__
+            #    ):
+            #        HELPABLE[
+            #            imported_module.__MODULE__.lower()
+            #        ] = imported_module
             console.print(
                 f">> [bold cyan]Successfully imported: [green]{all_module}.py"
             )
@@ -341,7 +340,6 @@ async def start_command(_, message):
             LOG_GROUP_ID,
             f"{message.from_user.mention} has just started Bot.\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
         )
-    return
 
 
 if __name__ == "__main__":
