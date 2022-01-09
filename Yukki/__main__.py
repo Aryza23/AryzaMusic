@@ -323,23 +323,6 @@ async def start_command(_, message):
                 parse_mode="markdown",
                 reply_markup=key,
             )
-            if await is_on_off(5):
-                sender_id = message.from_user.id
-                sender_name = message.from_user.first_name
-                umention = f"[{sender_name}](tg://user?id={int(sender_id)})"
-                return await LOG_CLIENT.send_message(
-                    LOG_GROUP_ID,
-                    f"{message.from_user.mention} has just started bot to check <code>VIDEO INFORMATION</code>\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
-                )
-            return
-    if await is_on_off(5):
-        sender_id = message.from_user.id
-        sender_name = message.from_user.first_name
-        umention = f"[{sender_name}](tg://user?id={int(sender_id)})"
-        return await LOG_CLIENT.send_message(
-            LOG_GROUP_ID,
-            f"{message.from_user.mention} has just started Bot.\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
-        )
 
 
 if __name__ == "__main__":
