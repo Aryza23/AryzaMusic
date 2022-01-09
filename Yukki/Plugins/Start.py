@@ -13,7 +13,7 @@ from pyrogram.types import (
     Message,
 )
 
-from Yukki import ASSID, BOT_ID, MUSIC_BOT_NAME, OWNER_ID, SUDOERS, app
+from Yukki import BOT_ID, MUSIC_BOT_NAME, OWNER_ID, SUDOERS, app
 from Yukki import boottime as bot_start_time
 from Yukki import db
 from Yukki.Core.PyTgCalls import Yukki
