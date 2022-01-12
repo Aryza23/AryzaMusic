@@ -1,10 +1,18 @@
 import asyncio
 from os import path
+import os
 
 from pyrogram import filters
-from pyrogram.types import (InlineKeyboardMarkup, InputMediaPhoto, Message,
-                            Voice)
+from pyrogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    InputMediaPhoto,
+    Message,
+    Voice,
+)
 from youtube_search import YoutubeSearch
+from pyrogram.errors import UserAlreadyParticipant, UserNotParticipant
 
 import Yukki
 from Yukki import (BOT_USERNAME, DURATION_LIMIT, DURATION_LIMIT_MIN,
@@ -31,6 +39,8 @@ from Yukki.Utilities.youtube import (get_yt_info_id, get_yt_info_query,
                                      get_yt_info_query_slider)
 
 loop = asyncio.get_event_loop()
+BANNED_USERS = set(int(x) for x in os.getenv("BANNED_USERS", "").split())
+UPDATES_CHANNEL = "SatanicSociety"
 
 
 @app.on_message(
@@ -42,6 +52,55 @@ loop = asyncio.get_event_loop()
 @AssistantAdd
 async def play(_, message: Message):
     await message.delete()
+    chat_id = message.chat.id
+    user_id = message.from_user.id
+    user_name = message.from_user.first_name
+    rpk = "[" + user_name + "](tg://user?id=" + str(user_id) + ")"
+    if chat_id in BANNED_USERS:
+        await app.send_message(
+            chat_id,
+            text=f"**❌ Anda telah di ban\nUntuk menggunakan bot anda harus join di [Group](https://t.me/SatanicSociety)**",
+            reply_to_message_id=message.message_id,
+        )
+        return
+    ## Doing Force Sub 🤣
+    update_channel = UPDATES_CHANNEL
+    if update_channel:
+        try:
+            user = await app.get_chat_member(update_channel, user_id)
+            if user.status == "kicked":
+                await app.send_message(
+                    chat_id,
+                    text=f"**❌ Anda telah di ban\nUbtuk menggunakan bot anda harus join di [Group](https://t.me/SatanicSociety)**",
+                    parse_mode="markdown",
+                    disable_web_page_preview=True,
+                )
+                return
+        except UserNotParticipant:
+            await app.send_message(
+                chat_id,
+                text=f"🇮🇩 **Halo {rpk} Untuk menghindari penggunaan yang berlebihan bot ini di khususkan untuk yang sudah join di Group kami!**\n\n🇺🇸 **Hello {rpk} to avoid excessive use of these bots is specified for those who have been joining in our group!**",
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                "Join Support",
+                                url=f"https://t.me/SatanicSociety",
+                            )
+                        ]
+                    ]
+                ),
+                parse_mode="markdown",
+            )
+            return
+        except Exception:
+            await app.send_message(
+                chat_id,
+                text=f"**{rpk} ⁣ Looks like something is wrong bro\n Please contact the Support Group [Support Group](https://t.me/SatanicSociety).**",
+                parse_mode="markdown",
+                disable_web_page_preview=True,
+            )
+            return
     if message.chat.id not in db_mem:
         db_mem[message.chat.id] = {}
     if message.sender_chat:
