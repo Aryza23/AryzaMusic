@@ -1,7 +1,5 @@
 import yt_dlp
-from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
-                            InlineKeyboardMarkup, InputMediaAudio,
-                            InputMediaDocument, InputMediaVideo, Message)
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
 def YT_info(yturl):
