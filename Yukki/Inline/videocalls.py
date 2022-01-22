@@ -1,4 +1,5 @@
-from pyrogram.types import InlineKeyboardButton
+from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
+                            InlineKeyboardMarkup, InputMediaPhoto, Message)
 
 
 def choose_markup(videoid, duration, user_id):
@@ -12,12 +13,6 @@ def choose_markup(videoid, duration, user_id):
                 text="🎥 Play Video",
                 callback_data=f"Choose {videoid}|{duration}|{user_id}",
             ),
-        ],
-        [
-            InlineKeyboardButton(
-                text="🗑 Close Search",
-                callback_data=f"forceclose {videoid}|{user_id}",
-            )
         ],
     ]
     return buttons
@@ -57,8 +52,8 @@ def stream_quality_markup(videoid, duration, user_id):
         ],
         [
             InlineKeyboardButton(
-                text="🗑 Close Search",
-                callback_data=f"forceclose {videoid}|{user_id}",
+                text="⬅️ Back",
+                callback_data=f"gback_list_chose_stream {videoid}|{duration}|{user_id}",
             )
         ],
     ]
