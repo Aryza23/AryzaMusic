@@ -4,11 +4,14 @@ import shutil
 
 from pyrogram.types import InlineKeyboardMarkup
 
+from config import get_queue
 from Yukki import BOT_USERNAME, db_mem
 from Yukki.Core.PyTgCalls import Queues
 from Yukki.Core.PyTgCalls.Yukki import join_stream
-from Yukki.Database import add_active_chat, is_active_chat, music_on
-from Yukki.Inline import audio_markup, audio_markup2, primary_markup, secondary_markup
+from Yukki.Database import (add_active_chat, add_active_video_chat,
+                            is_active_chat, music_off, music_on)
+from Yukki.Inline import (audio_markup, audio_markup2, primary_markup,
+                          secondary_markup)
 from Yukki.Utilities.timer import start_timer
 
 loop = asyncio.get_event_loop()
@@ -31,7 +34,12 @@ async def start_stream(
     wtfbro["live_check"] = False
     if await is_active_chat(CallbackQuery.message.chat.id):
         position = await Queues.put(CallbackQuery.message.chat.id, file=file)
-        _path_ = (str(file)).replace("_", "", 1).replace("/", "", 1).replace(".", "", 1)
+        _path_ = (
+            (str(file))
+            .replace("_", "", 1)
+            .replace("/", "", 1)
+            .replace(".", "", 1)
+        )
         buttons = secondary_markup(videoid, CallbackQuery.from_user.id)
         if file not in db_mem:
             db_mem[file] = {}
@@ -51,7 +59,7 @@ async def start_stream(
         final_output = await CallbackQuery.message.reply_photo(
             photo=thumb,
             caption=(
-                f"🎬<b>__Song:__ </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n⏳<b>__Duration:__</b> {duration_min} \n💡<b>__Info:__</b> [Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{videoid})\n👤<b>__Requested by:__ </b>{CallbackQuery.from_user.mention} \n🚧<b>__Queued at:__</b> <b>#{position}!</b>"
+                f"🎬 <b>__Song:__ </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n⏳ <b>__Duration:__</b> {duration_min} \n💡 <b>__Info:__</b> [Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{videoid})\n👤 <b>__Requested by:__ </b>{CallbackQuery.from_user.mention} \n🚧 <b>__Queued at:__</b> <b>#{position}!</b>"
             ),
             reply_markup=InlineKeyboardMarkup(buttons),
         )
@@ -75,7 +83,7 @@ async def start_stream(
             videoid, CallbackQuery.from_user.id, duration_min, duration_min
         )
         await mystic.delete()
-        cap = f"🎥<b>__Playing:__ </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n💡<b>__Info:__</b> [Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{videoid})\n👤**__Requested by:__** {CallbackQuery.from_user.mention}"
+        cap = f"🎥 <b>__Playing:__ </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n💡 <b>__Info:__</b> [Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{videoid})\n👤 **__Requested by:__** {CallbackQuery.from_user.mention}"
         final_output = await CallbackQuery.message.reply_photo(
             photo=thumb,
             reply_markup=InlineKeyboardMarkup(buttons),
@@ -124,7 +132,7 @@ async def start_stream_audio(
         final_output = await message.reply_photo(
             photo="Utils/Telegram.JPEG",
             caption=(
-                f"🎬<b>__Audio:__ </b> [Given Audio Via Telegram]({link})\n⏳<b>__Duration:__</b> {duration_min} \n👤<b>__Requested by:__ </b>{message.from_user.mention} \n🚧<b>__Queued at:__</b> <b>#{position}!</b>"
+                f"🎬 <b>__Audio:__ </b> [Given Audio Via Telegram]({link})\n⏳ <b>__Duration:__</b> {duration_min} \n👤 <b>__Requested by:__ </b>{message.from_user.mention} \n🚧 <b>__Queued at:__</b> <b>#{position}!</b>"
             ),
             reply_markup=audio_markup2,
         )
@@ -148,7 +156,7 @@ async def start_stream_audio(
             videoid, message.from_user.id, duration_min, duration_min
         )
         await mystic.delete()
-        cap = f"🎥<b>__Playing:__ </b>[Given Audio Via Telegram]({link})\n👤**__Requested by:__** {message.from_user.mention}"
+        cap = f"🎥 <b>__Playing:__ </b>[Given Audio Via Telegram]({link})\n👤 **__Requested by:__** {message.from_user.mention}"
         final_output = await message.reply_photo(
             photo="Utils/Telegram.JPEG",
             reply_markup=InlineKeyboardMarkup(buttons),
