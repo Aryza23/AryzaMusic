@@ -1,5 +1,4 @@
-from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
-                            InlineKeyboardMarkup, InputMediaPhoto, Message)
+from pyrogram.types import InlineKeyboardButton
 
 
 def check_markup(user_name, user_id, videoid):
@@ -9,8 +8,8 @@ def check_markup(user_name, user_id, videoid):
                 text=f"Group's Playlist",
                 callback_data=f"playlist_check {user_id}|Group|{videoid}",
             ),
-         ],
-         [
+        ],
+        [
             InlineKeyboardButton(
                 text=f"{user_name[:8]}'s Playlist",
                 callback_data=f"playlist_check {user_id}|Personal|{videoid}",
@@ -28,8 +27,8 @@ def playlist_markup(user_name, user_id, videoid):
                 text=f"Group's Playlist",
                 callback_data=f"show_genre {user_id}|Group|{videoid}",
             ),
-         ],
-         [
+        ],
+        [
             InlineKeyboardButton(
                 text=f"{user_name[:8]}'s Playlist",
                 callback_data=f"show_genre {user_id}|Personal|{videoid}",

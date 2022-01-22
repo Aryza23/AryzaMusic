@@ -1,30 +1,60 @@
 import asyncio
 import importlib
-import os
-import re
 
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pytgcalls import idle
 from rich.console import Console
-from rich.table import Table
 from youtubesearchpython import VideosSearch
 
-from config import (LOG_GROUP_ID, LOG_SESSION, STRING1, STRING2, STRING3,
-                    STRING4, STRING5)
-from Yukki import (ASS_CLI_1, ASS_CLI_2, ASS_CLI_3, ASS_CLI_4, ASS_CLI_5,
-                   ASSID1, ASSID2, ASSID3, ASSID4, ASSID5, ASSNAME1, ASSNAME2,
-                   ASSNAME3, ASSNAME4, ASSNAME5, BOT_ID, BOT_NAME, LOG_CLIENT,
-                   OWNER_ID, app)
+from config import (
+    LOG_GROUP_ID,
+    LOG_SESSION,
+    STRING1,
+    STRING2,
+    STRING3,
+    STRING4,
+    STRING5,
+)
+from Yukki import (
+    ASS_CLI_1,
+    ASS_CLI_2,
+    ASS_CLI_3,
+    ASS_CLI_4,
+    ASS_CLI_5,
+    ASSID1,
+    ASSID2,
+    ASSID3,
+    ASSID4,
+    ASSID5,
+    ASSNAME1,
+    ASSNAME2,
+    ASSNAME3,
+    ASSNAME4,
+    ASSNAME5,
+    BOT_ID,
+    BOT_NAME,
+    LOG_CLIENT,
+    OWNER_ID,
+    app,
+)
 from Yukki.Core.Clients.cli import LOG_CLIENT
-from Yukki.Core.PyTgCalls.Yukki import (pytgcalls1, pytgcalls2, pytgcalls3,
-                                        pytgcalls4, pytgcalls5)
-from Yukki.Database import (get_active_chats, get_active_video_chats,
-                            get_sudoers, is_on_off, remove_active_chat,
-                            remove_active_video_chat)
-from Yukki.Inline import private_panel
+from Yukki.Core.PyTgCalls.Yukki import (
+    pytgcalls1,
+    pytgcalls2,
+    pytgcalls3,
+    pytgcalls4,
+    pytgcalls5,
+)
+from Yukki.Database import (
+    get_active_chats,
+    get_active_video_chats,
+    get_sudoers,
+    is_on_off,
+    remove_active_chat,
+    remove_active_video_chat,
+)
 from Yukki.Plugins import ALL_MODULES
-from Yukki.Utilities.inline import paginate_modules
 
 loop = asyncio.get_event_loop()
 console = Console()
@@ -39,18 +69,16 @@ async def initiate_bot():
             for chat in chats:
                 chat_id = int(chat["chat_id"])
                 await remove_active_video_chat(chat_id)
-        except Exception as e:
+        except Exception:
             pass
         try:
             chats = await get_active_chats()
             for chat in chats:
                 chat_id = int(chat["chat_id"])
                 await remove_active_chat(chat_id)
-        except Exception as e:
+        except Exception:
             pass
-        status.update(
-            status="[bold blue]Scanning for Plugins", spinner="earth"
-        )
+        status.update(status="[bold blue]Scanning for Plugins", spinner="earth")
         console.print("Found {} Plugins".format(len(ALL_MODULES)) + "\n")
         status.update(
             status="[bold red]Importing Plugins...",
@@ -58,13 +86,8 @@ async def initiate_bot():
             spinner_style="yellow",
         )
         for all_module in ALL_MODULES:
-            imported_module = importlib.import_module(
-                "Yukki.Plugins." + all_module
-            )
-            if (
-                hasattr(imported_module, "__MODULE__")
-                and imported_module.__MODULE__
-            ):
+            imported_module = importlib.import_module("Yukki.Plugins." + all_module)
+            if hasattr(imported_module, "__MODULE__") and imported_module.__MODULE__:
                 imported_module.__MODULE__ = imported_module.__MODULE__
             #    if (
             #        hasattr(imported_module, "__HELP__")
@@ -88,7 +111,7 @@ async def initiate_bot():
             LOG_GROUP_ID,
             "<b>Congrats!! Music Bot has started successfully!</b>",
         )
-    except Exception as e:
+    except Exception:
         print(
             "\nBot has failed to access the log Channel. Make sure that you have added your bot to your log channel and promoted as admin!"
         )
@@ -107,7 +130,7 @@ async def initiate_bot():
                 LOG_GROUP_ID,
                 "<b>Congrats!! Assistant Client 1  has started successfully!</b>",
             )
-        except Exception as e:
+        except Exception:
             print(
                 "\nAssistant Account 1 has failed to access the log Channel. Make sure that you have added your Assistant to your log channel and promoted as admin!"
             )
@@ -126,7 +149,7 @@ async def initiate_bot():
                 LOG_GROUP_ID,
                 "<b>Congrats!! Assistant Client 2 has started successfully!</b>",
             )
-        except Exception as e:
+        except Exception:
             print(
                 "\nAssistant Account 2 has failed to access the log Channel. Make sure that you have added your Assistant to your log channel and promoted as admin!"
             )
@@ -145,7 +168,7 @@ async def initiate_bot():
                 LOG_GROUP_ID,
                 "<b>Congrats!! Assistant Client 3 has started successfully!</b>",
             )
-        except Exception as e:
+        except Exception:
             print(
                 "\nAssistant Account 3 has failed to access the log Channel. Make sure that you have added your Assistant to your log channel and promoted as admin!"
             )
@@ -164,7 +187,7 @@ async def initiate_bot():
                 LOG_GROUP_ID,
                 "<b>Congrats!! Assistant Client 4 has started successfully!</b>",
             )
-        except Exception as e:
+        except Exception:
             print(
                 "\nAssistant Account 4 has failed to access the log Channel. Make sure that you have added your Assistant to your log channel and promoted as admin!"
             )
@@ -183,7 +206,7 @@ async def initiate_bot():
                 LOG_GROUP_ID,
                 "<b>Congrats!! Assistant Client 5 has started successfully!</b>",
             )
-        except Exception as e:
+        except Exception:
             print(
                 "\nAssistant Account 5 has failed to access the log Channel. Make sure that you have added your Assistant to your log channel and promoted as admin!"
             )
@@ -202,7 +225,7 @@ async def initiate_bot():
                 LOG_GROUP_ID,
                 "<b>Congrats!! Logger Client has started successfully!</b>",
             )
-        except Exception as e:
+        except Exception:
             print(
                 "\nLogger Client has failed to access the log Channel. Make sure that you have added your Logger Account to your log channel and promoted as admin!"
             )
@@ -228,7 +251,6 @@ async def initiate_bot():
     console.print(f"\n[red]Stopping Bot")
 
 
-
 @app.on_message(filters.command("start") & filters.private)
 async def start_command(_, message):
     if len(message.text.split()) > 1:
@@ -240,9 +262,7 @@ async def start_command(_, message):
             for x in OWNER_ID:
                 try:
                     user = await app.get_users(x)
-                    user = (
-                        user.first_name if not user.mention else user.mention
-                    )
+                    user = user.first_name if not user.mention else user.mention
                     sex += 1
                 except Exception:
                     continue
@@ -252,11 +272,7 @@ async def start_command(_, message):
                 if user_id not in OWNER_ID:
                     try:
                         user = await app.get_users(user_id)
-                        user = (
-                            user.first_name
-                            if not user.mention
-                            else user.mention
-                        )
+                        user = user.first_name if not user.mention else user.mention
                         if smex == 0:
                             smex += 1
                             text += "\n⭐️<u> **Sudo Users:**</u>\n"
@@ -309,9 +325,7 @@ async def start_command(_, message):
                         InlineKeyboardButton(
                             text="🎥 Watch Youtube Video", url=f"{link}"
                         ),
-                        InlineKeyboardButton(
-                            text="🔄 Close", callback_data="close"
-                        ),
+                        InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                     ],
                 ]
             )

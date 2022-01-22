@@ -1,7 +1,5 @@
 import yt_dlp
-from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
-                            InlineKeyboardMarkup, InputMediaAudio,
-                            InputMediaDocument, InputMediaVideo, Message)
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
 def YT_info(yturl):
@@ -42,9 +40,7 @@ async def get_formats(CallbackQuery, videoid, user_id, type):
     try:
         formats = YT_info(url)
     except Exception:
-        return await CallbackQuery.message.reply_text(
-            "Failed To Fetch Data..."
-        )
+        return await CallbackQuery.message.reply_text("Failed To Fetch Data...")
     j = 0
     for x in formats:
         check = x["format"]
@@ -119,13 +115,9 @@ async def get_formats(CallbackQuery, videoid, user_id, type):
                     callback_data=f"ytdata video||{x['format_id']}||{videoid}",
                 )
         else:
-            return await CallbackQuery.message.reply_text(
-                "Video Format Not Found."
-            )
+            return await CallbackQuery.message.reply_text("Video Format Not Found.")
     if j == 0:
-        return await CallbackQuery.message.reply_text(
-            "Video Format Not Found.."
-        )
+        return await CallbackQuery.message.reply_text("Video Format Not Found..")
     elif j == 1:
         key = InlineKeyboardMarkup(
             [
@@ -137,9 +129,7 @@ async def get_formats(CallbackQuery, videoid, user_id, type):
                         text="⬅️  Go Back",
                         callback_data=f"good {videoid}|{user_id}",
                     ),
-                    InlineKeyboardButton(
-                        text="🗑 Close Menu", callback_data=f"close2"
-                    ),
+                    InlineKeyboardButton(text="🗑 Close Menu", callback_data=f"close2"),
                 ],
             ]
         )
@@ -155,9 +145,7 @@ async def get_formats(CallbackQuery, videoid, user_id, type):
                         text="⬅️  Go Back",
                         callback_data=f"good {videoid}|{user_id}",
                     ),
-                    InlineKeyboardButton(
-                        text="🗑 Close Menu", callback_data=f"close2"
-                    ),
+                    InlineKeyboardButton(text="🗑 Close Menu", callback_data=f"close2"),
                 ],
             ]
         )
@@ -176,9 +164,7 @@ async def get_formats(CallbackQuery, videoid, user_id, type):
                         text="⬅️  Go Back",
                         callback_data=f"good {videoid}|{user_id}",
                     ),
-                    InlineKeyboardButton(
-                        text="🗑 Close Menu", callback_data=f"close2"
-                    ),
+                    InlineKeyboardButton(text="🗑 Close Menu", callback_data=f"close2"),
                 ],
             ]
         )
@@ -198,9 +184,7 @@ async def get_formats(CallbackQuery, videoid, user_id, type):
                         text="⬅️  Go Back",
                         callback_data=f"good {videoid}|{user_id}",
                     ),
-                    InlineKeyboardButton(
-                        text="🗑 Close Menu", callback_data=f"close2"
-                    ),
+                    InlineKeyboardButton(text="🗑 Close Menu", callback_data=f"close2"),
                 ],
             ]
         )
@@ -223,9 +207,7 @@ async def get_formats(CallbackQuery, videoid, user_id, type):
                         text="⬅️  Go Back",
                         callback_data=f"good {videoid}|{user_id}",
                     ),
-                    InlineKeyboardButton(
-                        text="🗑 Close Menu", callback_data=f"close2"
-                    ),
+                    InlineKeyboardButton(text="🗑 Close Menu", callback_data=f"close2"),
                 ],
             ]
         )
@@ -249,16 +231,12 @@ async def get_formats(CallbackQuery, videoid, user_id, type):
                         text="⬅️  Go Back",
                         callback_data=f"good {videoid}|{user_id}",
                     ),
-                    InlineKeyboardButton(
-                        text="🗑 Close Menu", callback_data=f"close2"
-                    ),
+                    InlineKeyboardButton(text="🗑 Close Menu", callback_data=f"close2"),
                 ],
             ]
         )
     else:
-        return await CallbackQuery.message.reply_text(
-            "Video Format Not Found...."
-        )
+        return await CallbackQuery.message.reply_text("Video Format Not Found....")
     return key
 
 
@@ -292,9 +270,7 @@ def get_type(type, format, videoid, user_id):
                     text="⬅️  Go Back",
                     callback_data=f"good {videoid}|{user_id}",
                 ),
-                InlineKeyboardButton(
-                    text="🗑 Close Menu", callback_data=f"close2"
-                ),
+                InlineKeyboardButton(text="🗑 Close Menu", callback_data=f"close2"),
             ],
         ]
     )
