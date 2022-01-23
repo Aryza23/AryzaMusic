@@ -10,12 +10,6 @@ def others_markup(videoid, user_id):
     buttons = [
         [
             InlineKeyboardButton(
-                text="🔎 Search Lyrics",
-                callback_data=f"lyrics {videoid}|{user_id}",
-            )
-        ],
-        [
-            InlineKeyboardButton(
                 text="✚ Your Playlist",
                 callback_data=f"your_playlist {videoid}|{user_id}",
             ),
@@ -26,8 +20,12 @@ def others_markup(videoid, user_id):
         ],
         [
             InlineKeyboardButton(
-                text="⬇️ Download Audio/Video",
+                text="📥 Audio/Video",
                 callback_data=f"audio_video_download {videoid}|{user_id}",
+            ),
+            InlineKeyboardButton(
+                text="🔎 Lyrics",
+                callback_data=f"lyrics {videoid}|{user_id}",
             )
         ],
         [
@@ -44,11 +42,11 @@ def download_markup(videoid, user_id):
     buttons = [
         [
             InlineKeyboardButton(
-                text="⬇️ Get Audio",
+                text="📥 Audio",
                 callback_data=f"gets audio|{videoid}|{user_id}",
             ),
             InlineKeyboardButton(
-                text="⬇️ Get Video",
+                text="📥 Video",
                 callback_data=f"gets video|{videoid}|{user_id}",
             ),
         ],
