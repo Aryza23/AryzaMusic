@@ -26,7 +26,7 @@ def others_markup(videoid, user_id):
             InlineKeyboardButton(
                 text="🔎 Lyrics",
                 callback_data=f"lyrics {videoid}|{user_id}",
-            )
+            ),
         ],
         [
             InlineKeyboardButton(
