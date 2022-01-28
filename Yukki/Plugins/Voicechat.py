@@ -15,6 +15,7 @@ from Yukki.Inline import choose_markup, primary_markup
 from Yukki.Utilities.assistant import get_assistant_details
 
 loop = asyncio.get_event_loop()
+get_queue = {}
 
 __MODULE__ = "Join/Leave"
 __HELP__ = """
