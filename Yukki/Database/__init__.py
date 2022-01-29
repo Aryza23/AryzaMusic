@@ -21,7 +21,6 @@ from .playlist import (
     get_playlist_names,
     save_playlist,
 )
-from .pmpermit import approve_pmpermit, disapprove_pmpermit, is_pmpermit_approved
 from .queue import (
     add_active_chat,
     get_active_chats,
