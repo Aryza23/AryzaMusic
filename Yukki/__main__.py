@@ -38,7 +38,6 @@ from Yukki import (
     OWNER_ID,
     app,
 )
-from Yukki.Core.Clients.cli import LOG_CLIENT
 from Yukki.Core.PyTgCalls.Yukki import (
     pytgcalls1,
     pytgcalls2,
