@@ -92,7 +92,7 @@ async def admins(_, message: Message):
         await music_on(chat_id)
         await resume_stream(chat_id)
         await message.reply_text(f"🎧 Voicechat Resumed by {message.from_user.mention}!")
-    if message.command[0][1] == "t" or message.command[0][1] == "n":
+    if message.command[0][1] in ("t", "n"):
         if message.chat.id not in db_mem:
             db_mem[message.chat.id] = {}
         wtfbro = db_mem[message.chat.id]

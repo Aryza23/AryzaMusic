@@ -78,7 +78,7 @@ async def log_(client, message):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\nIn order to update your app, you need to set up the `HEROKU_API_KEY` and `HEROKU_APP_NAME` vars respectively!"
             )
-        elif HEROKU_API_KEY == "" or HEROKU_APP_NAME == "":
+        elif "" in (HEROKU_API_KEY, HEROKU_APP_NAME):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\n<b>Make sure to add both</b> `HEROKU_API_KEY` **and** `HEROKU_APP_NAME` <b>vars correctly in order to be able to update remotely!</b>"
             )
@@ -113,7 +113,7 @@ async def varget_(client, message):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\nIn order to update your app, you need to set up the `HEROKU_API_KEY` and `HEROKU_APP_NAME` vars respectively!"
             )
-        elif HEROKU_API_KEY == "" or HEROKU_APP_NAME == "":
+        elif "" in (HEROKU_API_KEY, HEROKU_APP_NAME):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\n<b>Make sure to add both</b> `HEROKU_API_KEY` **and** `HEROKU_APP_NAME` <b>vars correctly in order to be able to update remotely!</b>"
             )
@@ -155,7 +155,7 @@ async def vardel_(client, message):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\nIn order to update your app, you need to set up the `HEROKU_API_KEY` and `HEROKU_APP_NAME` vars respectively!"
             )
-        elif HEROKU_API_KEY == "" or HEROKU_APP_NAME == "":
+        elif "" in (HEROKU_API_KEY, HEROKU_APP_NAME):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\n<b>Make sure to add both</b> `HEROKU_API_KEY` **and** `HEROKU_APP_NAME` <b>vars correctly in order to be able to update remotely!</b>"
             )
@@ -199,7 +199,7 @@ async def set_var(client, message):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\nIn order to update your app, you need to set up the `HEROKU_API_KEY` and `HEROKU_APP_NAME` vars respectively!"
             )
-        elif HEROKU_API_KEY == "" or HEROKU_APP_NAME == "":
+        elif "" in (HEROKU_API_KEY, HEROKU_APP_NAME):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\n<b>Make sure to add both</b> `HEROKU_API_KEY` **and** `HEROKU_APP_NAME` <b>vars correctly in order to be able to update remotely!</b>"
             )
@@ -243,7 +243,7 @@ async def usage_dynos(client, message):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\nIn order to update your app, you need to set up the `HEROKU_API_KEY` and `HEROKU_APP_NAME` vars respectively!"
             )
-        elif HEROKU_API_KEY == "" or HEROKU_APP_NAME == "":
+        elif "" in (HEROKU_API_KEY, HEROKU_APP_NAME):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\n<b>Make sure to add both</b> `HEROKU_API_KEY` **and** `HEROKU_APP_NAME` <b>vars correctly in order to be able to update remotely!</b>"
             )
@@ -310,7 +310,7 @@ async def update_(client, message):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\nIn order to update your app, you need to set up the `HEROKU_API_KEY` and `HEROKU_APP_NAME` vars respectively!"
             )
-        elif HEROKU_API_KEY == "" or HEROKU_APP_NAME == "":
+        elif "" in (HEROKU_API_KEY, HEROKU_APP_NAME):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\n<b>Make sure to add both</b> `HEROKU_API_KEY` **and** `HEROKU_APP_NAME` <b>vars correctly in order to be able to update remotely!</b>"
             )
@@ -383,7 +383,7 @@ async def restart_(_, message):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\nIn order to restart your app, you need to set up the `HEROKU_API_KEY` and `HEROKU_APP_NAME` vars respectively!"
             )
-        elif HEROKU_API_KEY == "" or HEROKU_APP_NAME == "":
+        elif "" in (HEROKU_API_KEY, HEROKU_APP_NAME):
             return await message.reply_text(
                 "<b>HEROKU APP DETECTED!</b>\n\n<b>Make sure to add both</b> `HEROKU_API_KEY` **and** `HEROKU_APP_NAME` <b>vars correctly in order to be able to restart remotely!</b>"
             )
