@@ -1,6 +1,6 @@
 <h1 align= center><b>⭐️ Yukki Music Bot ⭐️</b></h1>
-<a href="https://deepsource.io/gh/Aryza23/AryzaMusic/?ref=repository-badge" target="_blank"><img alt="DeepSource" title="DeepSource" src="https://deepsource.io/gh/Aryza23/AryzaMusic.svg/?label=active+issues&show_trend=true&token=Ke_jHEPjvuBe_lPa7pC2L-YG"/></a>
-<a href="https://deepsource.io/gh/Aryza23/AryzaMusic/?ref=repository-badge" target="_blank"><img alt="DeepSource" title="DeepSource" src="https://deepsource.io/gh/Aryza23/AryzaMusic.svg/?label=resolved+issues&show_trend=true&token=Ke_jHEPjvuBe_lPa7pC2L-YG"/></a>
+<a href="https://deepsource.io/gh/Aryza23/AryzaMusic/?ref=repository-badge}" target="_blank"><img alt="DeepSource" title="DeepSource" src="https://deepsource.io/gh/Aryza23/AryzaMusic.svg/?label=active+issues&show_trend=true&token=tYdYdH6HTJ7MJzLB3bPhuQ2a"/></a>
+<a href="https://deepsource.io/gh/Aryza23/AryzaMusic/?ref=repository-badge}" target="_blank"><img alt="DeepSource" title="DeepSource" src="https://deepsource.io/gh/Aryza23/AryzaMusic.svg/?label=resolved+issues&show_trend=true&token=tYdYdH6HTJ7MJzLB3bPhuQ2a"/></a>
 <h3 align = center> Multi-Assistant | Video Calls | Voice Calls | Heroku Supported</h3>
 
 <p align="center">
