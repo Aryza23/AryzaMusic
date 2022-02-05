@@ -7,6 +7,7 @@ from datetime import datetime
 import dotenv
 import heroku3
 import requests
+import sys
 import urllib3
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError
@@ -371,7 +372,7 @@ async def update_(client, message):
         )
         os.system("pip3 install -r requirements.txt")
         os.system(f"kill -9 {os.getpid()} && bash start")
-        exit()
+        sys.exit()
     return
 
 
