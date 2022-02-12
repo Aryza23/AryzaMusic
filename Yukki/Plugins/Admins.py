@@ -35,7 +35,7 @@ from Yukki.Utilities.timer import start_timer
 from Yukki.Utilities.youtube import get_m3u8, get_yt_info_id
 
 loop = asyncio.get_event_loop()
-
+get_queue = {}
 
 __MODULE__ = "Voice Chat"
 __HELP__ = """
@@ -162,7 +162,7 @@ async def admins(_, message: Message):
                 final_output = await message.reply_photo(
                     photo=thumb,
                     reply_markup=InlineKeyboardMarkup(buttons),
-                    caption=f"<b>__Skipped Voice Chat__</b>\n\n🎥<b>__Started Playing:__</b> {title} \n⏳<b>__Duration:__</b> {duration_min} \n👤<b>__Requested by:__ </b> {mention}",
+                    caption=f"<b>__Skipped Voice Chat__</b>\n\n🎥 <b>__Started Playing:__</b> {title} \n⏳ <b>__Duration:__</b> {duration_min} \n👤 <b>__Requested by:__ </b> {mention}",
                 )
                 await start_timer(
                     videoid,
@@ -196,7 +196,7 @@ async def admins(_, message: Message):
                         photo="Utils/Telegram.JPEG",
                         reply_markup=InlineKeyboardMarkup(buttons),
                         caption=(
-                            f"<b>__Skipped Video Chat__</b>\n\n👤**__Requested by:__** {mention}"
+                            f"<b>__Skipped Video Chat__</b>\n\n👤 **__Requested by:__** {mention}"
                         ),
                     )
                     await mystic.delete()
@@ -234,7 +234,7 @@ async def admins(_, message: Message):
                         photo=thumb,
                         reply_markup=InlineKeyboardMarkup(buttons),
                         caption=(
-                            f"<b>__Skipped Video Chat__</b>\n\n🎥<b>__Started Video Playing:__ </b> [{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n👤**__Requested by:__** {mention}"
+                            f"<b>__Skipped Video Chat__</b>\n\n🎥 <b>__Started Video Playing:__ </b> [{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n👤 **__Requested by:__** {mention}"
                         ),
                     )
                     await mystic.delete()
@@ -280,7 +280,7 @@ async def admins(_, message: Message):
                     photo=thumb,
                     reply_markup=InlineKeyboardMarkup(buttons),
                     caption=(
-                        f"<b>__Skipped Voice Chat__</b>\n\n🎥<b>__Started Playing:__ </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n⏳<b>__Duration:__</b> {duration_min} Mins\n👤**__Requested by:__** {mention}"
+                        f"<b>__Skipped Voice Chat__</b>\n\n🎥 <b>__Started Playing:__ </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n⏳ <b>__Duration:__</b> {duration_min} Mins\n👤 **__Requested by:__** {mention}"
                     ),
                 )
                 os.remove(thumb)
