@@ -7,7 +7,7 @@ from pyrogram.errors import FloodWait
 from pyrogram.types import Message
 
 from config import LOG_SESSION, OWNER_ID
-from Yukki import BOT_ID, BOT_USERNAME, MUSIC_BOT_NAME, OWNER_ID, SUDOERS, app
+from Yukki import BOT_ID, BOT_USERNAME, MUSIC_BOT_NAME, SUDOERS, app
 from Yukki.Database import (
     add_gban_user,
     add_off,

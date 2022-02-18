@@ -27,7 +27,6 @@ from Yukki.Database import (
 )
 from Yukki.Database.queue import (
     add_active_chat,
-    is_active_chat,
     is_music_playing,
     music_off,
     music_on,
