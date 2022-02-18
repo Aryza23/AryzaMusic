@@ -24,7 +24,6 @@ from Yukki import (
     ASS_CLI_3,
     ASS_CLI_4,
     ASS_CLI_5,
-    MUSIC_BOT_NAME,
     app,
     boottime,
 )
