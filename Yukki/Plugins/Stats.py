@@ -104,7 +104,7 @@ async def stats_markup(_, CallbackQuery):
             cupc += f"Core {i}  : {percentage}%\n"
         cupc += "**Total CPU Usage:**\n"
         cupc += f"All Cores Usage: {psutil.cpu_percent()}%\n"
-        ram = str(round(psutil.virtual_memory().total / (1024.0 ** 3))) + " GB"
+        ram = str(round(psutil.virtual_memory().total / (1024.0**3))) + " GB"
         bot_uptime = int(time.time() - boottime)
         uptime = f"{get_readable_time((bot_uptime))}"
         smex = f"""
@@ -131,11 +131,11 @@ async def stats_markup(_, CallbackQuery):
     if command == "sto_stats":
         await CallbackQuery.answer("Getting Storage Stats...", show_alert=True)
         hdd = psutil.disk_usage("/")
-        total = hdd.total / (1024.0 ** 3)
+        total = hdd.total / (1024.0**3)
         total = str(total)
-        used = hdd.used / (1024.0 ** 3)
+        used = hdd.used / (1024.0**3)
         used = str(used)
-        free = hdd.free / (1024.0 ** 3)
+        free = hdd.free / (1024.0**3)
         free = str(free)
         smex = f"""
 [•]<u>**Storage Stats**</u>
