@@ -72,7 +72,6 @@ async def forceclose(_, CallbackQuery):
 @AdminRightsCheckCB
 @checkerCB
 async def admin_risghts(_, CallbackQuery):
-    global get_queue
     command = CallbackQuery.matches[0].group(1)
     if not await is_active_chat(CallbackQuery.message.chat.id):
         return await CallbackQuery.answer(
@@ -332,7 +331,6 @@ async def admin_risghts(_, CallbackQuery):
 
 @app.on_callback_query(filters.regex("play_playlist"))
 async def play_playlist(_, CallbackQuery):
-    global get_queue
     loop = asyncio.get_event_loop()
     callback_data = CallbackQuery.data.strip()
     chat_id = CallbackQuery.message.chat.id

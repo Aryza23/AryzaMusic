@@ -29,7 +29,6 @@ get_queue = {}
 
 
 async def start_stream_video(message, file, title, mystic):
-    global get_queue
     if message.chat.id not in db_mem:
         db_mem[message.chat.id] = {}
     wtfbro = db_mem[message.chat.id]
@@ -100,7 +99,6 @@ async def start_live_stream(
     duration_sec,
     videoid,
 ):
-    global get_queue
     if CallbackQuery.message.chat.id not in db_mem:
         db_mem[CallbackQuery.message.chat.id] = {}
     wtfbro = db_mem[CallbackQuery.message.chat.id]
@@ -141,7 +139,6 @@ async def start_video_stream(
     duration_sec,
     videoid,
 ):
-    global get_queue
     if CallbackQuery.message.chat.id not in db_mem:
         db_mem[CallbackQuery.message.chat.id] = {}
     wtfbro = db_mem[CallbackQuery.message.chat.id]
