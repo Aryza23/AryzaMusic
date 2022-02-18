@@ -25,7 +25,6 @@ async def start_stream(
     duration_sec,
     mystic,
 ):
-    global get_queue
     if CallbackQuery.message.chat.id not in db_mem:
         db_mem[CallbackQuery.message.chat.id] = {}
     wtfbro = db_mem[CallbackQuery.message.chat.id]
@@ -98,7 +97,6 @@ async def start_stream(
 async def start_stream_audio(
     message, file, videoid, title, duration_min, duration_sec, mystic
 ):
-    global get_queue
     if message.chat.id not in db_mem:
         db_mem[message.chat.id] = {}
     wtfbro = db_mem[message.chat.id]

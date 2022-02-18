@@ -89,7 +89,6 @@ async def timer_checkup_markup(_, CallbackQuery):
 
 @app.on_message(filters.command("queue"))
 async def activevc(_, message: Message):
-    global get_queue
     if await is_active_chat(message.chat.id):
         mystic = await message.reply_text("Please Wait... Getting Queue..")
         dur_left = db_mem[message.chat.id]["left"]

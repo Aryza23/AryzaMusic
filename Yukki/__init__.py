@@ -100,14 +100,12 @@ random_assistant = []
 
 
 async def initiate_bot():
-    global SUDOERS, OWNER_ID, ASSIDS
     global BOT_ID, BOT_NAME, BOT_USERNAME
     global ASSID1, ASSNAME1, ASSMENTION1, ASSUSERNAME1
     global ASSID2, ASSNAME2, ASSMENTION2, ASSUSERNAME2
     global ASSID3, ASSNAME3, ASSMENTION3, ASSUSERNAME3
     global ASSID4, ASSNAME4, ASSMENTION4, ASSUSERNAME4
     global ASSID5, ASSNAME5, ASSMENTION5, ASSUSERNAME5
-    global Heroku_cli, Heroku_app
     os.system("clear")
     header = Table(show_header=True, header_style="bold yellow")
     header.add_column(
