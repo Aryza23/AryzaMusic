@@ -18,7 +18,7 @@ from config import (
     STRING4,
     STRING5,
     SUDO_USERS,
-    )
+)
 from Yukki.Core.Clients.cli import (
     ASS_CLI_1,
     ASS_CLI_2,
