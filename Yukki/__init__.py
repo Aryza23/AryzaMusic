@@ -2,6 +2,7 @@ import asyncio
 import os
 import time
 from os import listdir, mkdir
+
 from aiohttp import ClientSession
 from motor.motor_asyncio import AsyncIOMotorClient as Bot
 from rich.console import Console
@@ -29,10 +30,11 @@ from Yukki.Core.Clients.cli import (
     app,
 )
 from Yukki.Utilities.changers import time_to_seconds
+from Yukki.Utilities.tasks import install_requirements
 
 loop = asyncio.get_event_loop()
 console = Console()
-
+get_queue = {}
 
 ### Modules
 MOD_LOAD = []
@@ -40,7 +42,7 @@ MOD_NOLOAD = []
 
 ### Mongo DB
 MONGODB_CLI = Bot(mango)
-db = MONGODB_CLI.Yukki
+db = MONGODB_CLI.Idzeroid
 
 ### Boot Time
 boottime = time.time()
@@ -94,6 +96,7 @@ random_assistant = []
 
 
 async def initiate_bot():
+    global SUDOERS, OWNER_ID, ASSIDS
     global BOT_ID, BOT_NAME, BOT_USERNAME
     global ASSID1, ASSNAME1, ASSMENTION1, ASSUSERNAME1
     global ASSID2, ASSNAME2, ASSMENTION2, ASSUSERNAME2
@@ -107,7 +110,7 @@ async def initiate_bot():
     )
     console.print(header)
     with console.status(
-        "[magenta] Idzeroid Music Bot Booting...",
+        "[magenta] IDZEROID Music Bot Booting...",
     ) as status:
         console.print("┌ [red]Booting Up The Clients...\n")
         await app.start()
