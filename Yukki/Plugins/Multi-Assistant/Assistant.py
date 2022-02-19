@@ -3,7 +3,7 @@ from inspect import getfullargspec
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from Yukki import ASSISTANT_PREFIX, BOT_USERNAME, LOG_GROUP_ID, MUSIC_BOT_NAME, SUDOERS
+from Yukki import ASSISTANT_PREFIX, SUDOERS
 
 flood = {}
 
