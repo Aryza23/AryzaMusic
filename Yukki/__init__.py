@@ -2,8 +2,6 @@ import asyncio
 import os
 import time
 from os import listdir, mkdir
-
-import heroku3
 from aiohttp import ClientSession
 from motor.motor_asyncio import AsyncIOMotorClient as Bot
 from rich.console import Console
@@ -20,9 +18,6 @@ from config import (
     STRING4,
     STRING5,
     SUDO_USERS,
-    UPSTREAM_BRANCH,
-    UPSTREAM_REPO,
-    get_queue,
 )
 from Yukki.Core.Clients.cli import (
     ASS_CLI_1,
@@ -34,7 +29,6 @@ from Yukki.Core.Clients.cli import (
     app,
 )
 from Yukki.Utilities.changers import time_to_seconds
-from Yukki.Utilities.tasks import install_requirements
 
 loop = asyncio.get_event_loop()
 console = Console()
