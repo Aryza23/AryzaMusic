@@ -70,29 +70,29 @@ async def ytdata(_, CallbackQuery):
 
 
 inl = InlineKeyboardMarkup(
-    [[InlineKeyboardButton(text="Downloading......", callback_data=f"down")]]
+    [[InlineKeyboardButton(text="Downloading......", callback_data="down")]]
 )
 
+
 upl = InlineKeyboardMarkup(
-    [[InlineKeyboardButton(text="Uploading......", callback_data=f"down")]]
+    [[InlineKeyboardButton(text="Uploading......", callback_data="down")]]
 )
 
 
 def inl_mark(videoid, user_id):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
-                text="Download or Upload Failed......", callback_data=f"down"
+                text="Download or Upload Failed......", callback_data="down"
             )
         ],
         [
             InlineKeyboardButton(
                 text="⬅️  Go Back", callback_data=f"good {videoid}|{user_id}"
             ),
-            InlineKeyboardButton(text="🗑 Close Menu", callback_data=f"close2"),
+            InlineKeyboardButton(text="🗑 Close Menu", callback_data="close2"),
         ],
     ]
-    return buttons
 
 
 ytdl_opts = {"format": "bestaudio", "quiet": True}
@@ -149,11 +149,7 @@ async def boom(_, CallbackQuery):
         if metadata.has("height"):
             height = metadata.get("height")
         img = Image.open(thumb_image_path)
-        if type == "audio":
-            img.resize((320, height))
-        elif type == "docaudio":
-            img.resize((320, height))
-        elif type == "docvideo":
+        if type in ["audio", "docaudio", "docvideo"]:
             img.resize((320, height))
         else:
             img.resize((90, height))
@@ -230,10 +226,9 @@ async def boom(_, CallbackQuery):
 
 
 def p_mark(link, channel):
-    buttons = [
+    return [
         [InlineKeyboardButton(text="Watch on Youtube", url=f"{link}")],
     ]
-    return buttons
 
 
 async def send_file(CallbackQuery, med, filename, videoid, user_id, link, channel):
@@ -287,9 +282,8 @@ def probe(vid_file_path):
 def duration(vid_file_path):
     _json = probe(vid_file_path)
 
-    if "format" in _json:
-        if "duration" in _json["format"]:
-            return float(_json["format"]["duration"])
+    if "format" in _json and "duration" in _json["format"]:
+        return float(_json["format"]["duration"])
 
     if "streams" in _json:
         # commonly stream 0 is the video
@@ -310,8 +304,7 @@ async def downloadvideocli(command_to_exec):
     stdout, stderr = await process.communicate()
     stderr.decode().strip()
     t_response = stdout.decode().strip()
-    filename = t_response.split("Merging formats into")[-1].split('"')[1]
-    return filename
+    return t_response.split("Merging formats into")[-1].split('"')[1]
 
 
 async def downloadaudiocli(command_to_exec):

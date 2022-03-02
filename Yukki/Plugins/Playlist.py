@@ -79,7 +79,6 @@ async def play_playlist_cmd(_, message):
                 ),
                 reply_markup=InlineKeyboardMarkup(buttons),
             )
-            return
         else:
             user_id = message.from_user.id
             user_name = message.from_user.first_name
@@ -91,7 +90,6 @@ async def play_playlist_cmd(_, message):
                 ),
                 reply_markup=InlineKeyboardMarkup(buttons),
             )
-            return
     else:
         userid = message.reply_to_message.from_user.id
         third_name = message.reply_to_message.from_user.first_name
@@ -105,7 +103,8 @@ async def play_playlist_cmd(_, message):
             ),
             reply_markup=InlineKeyboardMarkup(buttons),
         )
-        return
+
+    return
 
 
 @app.on_message(filters.command("playlist") & filters.group)
@@ -209,9 +208,7 @@ async def del_cmd(_, message):
                         f"**Deleted the {count} music in playlist**"
                     )
                 else:
-                    return await message.reply_text(
-                        f"**No such saved music in playlist.**"
-                    )
+                    return await message.reply_text("**No such saved music in playlist.**")
         await message.reply_text("You have no such music in Playlist.")
 
 
@@ -252,9 +249,7 @@ async def delgroupplaylist(_, message):
                         f"**Deleted the {count} music in group's playlist**"
                     )
                 else:
-                    return await message.reply_text(
-                        f"**No such saved music in Group playlist.**"
-                    )
+                    return await message.reply_text("**No such saved music in Group playlist.**")
         await message.reply_text("You have no such music in Playlist.")
 
 

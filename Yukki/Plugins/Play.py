@@ -51,7 +51,7 @@ from Yukki.Utilities.youtube import (
 )
 
 loop = asyncio.get_event_loop()
-BANNED_USERS = set(int(x) for x in os.getenv("BANNED_USERS", "").split())
+BANNED_USERS = {int(x) for x in os.getenv("BANNED_USERS", "").split()}
 UPDATES_CHANNEL = "SatanicSociety"
 
 
@@ -65,26 +65,26 @@ async def play(_, message: Message):
     chat_id = message.chat.id
     user_id = message.from_user.id
     user_name = message.from_user.first_name
-    rpk = "[" + user_name + "](tg://user?id=" + str(user_id) + ")"
+    rpk = f"[{user_name}](tg://user?id={str(user_id)})"
     if chat_id in BANNED_USERS:
         await app.send_message(
             chat_id,
-            text=f"**❌ Anda telah di ban\nUntuk menggunakan bot anda harus join di [Group](https://t.me/SatanicSociety)**",
+            text="**❌ Anda telah di ban\\nUntuk menggunakan bot anda harus join di [Group](https://t.me/SatanicSociety)**",
             reply_to_message_id=message.message_id,
         )
+
         return
-    ## Doing Force Sub 🤣
-    update_channel = UPDATES_CHANNEL
-    if update_channel:
+    if update_channel := UPDATES_CHANNEL:
         try:
             user = await app.get_chat_member(update_channel, user_id)
             if user.status == "kicked":
                 await app.send_message(
                     chat_id,
-                    text=f"**❌ Anda telah di ban\nUbtuk menggunakan bot anda harus join di [Group](https://t.me/SatanicSociety)**",
+                    text="**❌ Anda telah di ban\\nUbtuk menggunakan bot anda harus join di [Group](https://t.me/SatanicSociety)**",
                     parse_mode="markdown",
                     disable_web_page_preview=True,
                 )
+
                 return
         except UserNotParticipant:
             await app.send_message(
@@ -95,13 +95,14 @@ async def play(_, message: Message):
                         [
                             InlineKeyboardButton(
                                 "Join Support",
-                                url=f"https://t.me/SatanicSociety",
+                                url="https://t.me/SatanicSociety",
                             )
                         ]
                     ]
                 ),
                 parse_mode="markdown",
             )
+
             return
         except Exception:
             await app.send_message(
@@ -136,8 +137,6 @@ async def play(_, message: Message):
                 return await mystic.edit(
                     "Live Streaming Playing...Stop it to play music"
                 )
-            else:
-                pass
         except:
             pass
         if audio.file_size > 1073741824:
@@ -179,13 +178,12 @@ async def play(_, message: Message):
                 "**No Limit Defined for Video Calls**\n\nSet a Limit for Number of Maximum Video Calls allowed on Bot by /set_video_limit [Sudo Users Only]"
             )
         count = len(await get_active_video_chats())
-        if int(count) == int(limit):
-            if await is_active_video_chat(message.chat.id):
-                pass
-            else:
-                return await message.reply_text(
-                    "Sorry! Bot only allows limited number of video calls due to CPU overload issues. Many other chats are using video call right now. Try switching to audio or try again later"
-                )
+        if int(count) == int(limit) and not await is_active_video_chat(
+            message.chat.id
+        ):
+            return await message.reply_text(
+                "Sorry! Bot only allows limited number of video calls due to CPU overload issues. Many other chats are using video call right now. Try switching to audio or try again later"
+            )
         mystic = await message.reply_text("🔄 Processing Video... Please Wait!")
         try:
             read = db_mem[message.chat.id]["live_check"]
@@ -193,8 +191,6 @@ async def play(_, message: Message):
                 return await mystic.edit(
                     "Live Streaming Playing...Stop it to play music"
                 )
-            else:
-                pass
         except:
             pass
         file = await telegram_download(message, mystic)
@@ -266,8 +262,6 @@ async def Music_Stream(_, CallbackQuery):
                 "Live Streaming Playing...Stop it to play music",
                 show_alert=True,
             )
-        else:
-            pass
     except:
         pass
     callback_data = CallbackQuery.data.strip()
@@ -417,10 +411,7 @@ async def slider_query_results(_, CallbackQuery):
     what = str(what)
     type = int(type)
     if what == "F":
-        if type == 9:
-            query_type = 0
-        else:
-            query_type = int(type + 1)
+        query_type = 0 if type == 9 else int(type + 1)
         await CallbackQuery.answer("Getting Next Result", show_alert=True)
         (
             title,
@@ -438,10 +429,7 @@ async def slider_query_results(_, CallbackQuery):
             media=med, reply_markup=InlineKeyboardMarkup(buttons)
         )
     if what == "B":
-        if type == 0:
-            query_type = 9
-        else:
-            query_type = int(type - 1)
+        query_type = 9 if type == 0 else int(type - 1)
         await CallbackQuery.answer("Getting Previous Result", show_alert=True)
         (
             title,

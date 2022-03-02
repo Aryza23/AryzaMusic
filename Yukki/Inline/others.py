@@ -7,7 +7,7 @@ def others_markup(videoid, user_id):
     if videoid not in db_mem:
         db_mem[videoid] = {}
     db_mem[videoid]["check"] = 1
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="✚ Your Playlist",
@@ -35,11 +35,10 @@ def others_markup(videoid, user_id):
             ),
         ],
     ]
-    return buttons
 
 
 def download_markup(videoid, user_id):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="📥 Audio",
@@ -56,4 +55,3 @@ def download_markup(videoid, user_id):
             ),
         ],
     ]
-    return buttons

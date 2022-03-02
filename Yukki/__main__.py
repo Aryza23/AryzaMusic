@@ -114,12 +114,12 @@ async def initiate_bot():
         print(
             "\nBot has failed to access the log Channel. Make sure that you have added your bot to your log channel and promoted as admin!"
         )
-        console.print(f"\n[red]Stopping Bot")
+        console.print("\\n[red]Stopping Bot")
         return
     a = await app.get_chat_member(LOG_GROUP_ID, BOT_ID)
     if a.status != "administrator":
         print("Promote Bot as Admin in Logger Channel")
-        console.print(f"\n[red]Stopping Bot")
+        console.print("\\n[red]Stopping Bot")
         return
     console.print(f"\n┌[red] Bot Started as {BOT_NAME}!")
     console.print(f"├[green] ID :- {BOT_ID}!")
@@ -133,7 +133,7 @@ async def initiate_bot():
             print(
                 "\nAssistant Account 1 has failed to access the log Channel. Make sure that you have added your Assistant to your log channel and promoted as admin!"
             )
-            console.print(f"\n[red]Stopping Bot")
+            console.print("\\n[red]Stopping Bot")
             return
         try:
             await ASS_CLI_1.join_chat("idzeroid")
@@ -152,7 +152,7 @@ async def initiate_bot():
             print(
                 "\nAssistant Account 2 has failed to access the log Channel. Make sure that you have added your Assistant to your log channel and promoted as admin!"
             )
-            console.print(f"\n[red]Stopping Bot")
+            console.print("\\n[red]Stopping Bot")
             return
         try:
             await ASS_CLI_2.join_chat("idzeroid")
@@ -171,7 +171,7 @@ async def initiate_bot():
             print(
                 "\nAssistant Account 3 has failed to access the log Channel. Make sure that you have added your Assistant to your log channel and promoted as admin!"
             )
-            console.print(f"\n[red]Stopping Bot")
+            console.print("\\n[red]Stopping Bot")
             return
         try:
             await ASS_CLI_3.join_chat("idzeroid")
@@ -190,7 +190,7 @@ async def initiate_bot():
             print(
                 "\nAssistant Account 4 has failed to access the log Channel. Make sure that you have added your Assistant to your log channel and promoted as admin!"
             )
-            console.print(f"\n[red]Stopping Bot")
+            console.print("\\n[red]Stopping Bot")
             return
         try:
             await ASS_CLI_4.join_chat("idzeroid")
@@ -209,7 +209,7 @@ async def initiate_bot():
             print(
                 "\nAssistant Account 5 has failed to access the log Channel. Make sure that you have added your Assistant to your log channel and promoted as admin!"
             )
-            console.print(f"\n[red]Stopping Bot")
+            console.print("\\n[red]Stopping Bot")
             return
         try:
             await ASS_CLI_5.join_chat("idzeroid")
@@ -228,14 +228,14 @@ async def initiate_bot():
             print(
                 "\nLogger Client has failed to access the log Channel. Make sure that you have added your Logger Account to your log channel and promoted as admin!"
             )
-            console.print(f"\n[red]Stopping Bot")
+            console.print("\\n[red]Stopping Bot")
             return
         try:
             await LOG_CLIENT.join_chat("idzeroid")
             await LOG_CLIENT.join_chat("satanicsociety")
         except:
             pass
-    console.print(f"└[red] Idzeroid Music Bot Boot Completed.")
+    console.print("└[red] Idzeroid Music Bot Boot Completed.")
     if STRING1 != "None":
         await pytgcalls1.start()
     if STRING2 != "None":
@@ -247,65 +247,66 @@ async def initiate_bot():
     if STRING5 != "None":
         await pytgcalls5.start()
     await idle()
-    console.print(f"\n[red]Stopping Bot")
+    console.print("\\n[red]Stopping Bot")
 
 
 @app.on_message(filters.command("start") & filters.private)
 async def start_command(_, message):
-    if len(message.text.split()) > 1:
-        name = (message.text.split(None, 1)[1]).lower()
-        if name[0] == "s":
-            sudoers = await get_sudoers()
-            text = "⭐️<u> **Owners:**</u>\n"
-            sex = 0
-            for x in OWNER_ID:
+    if len(message.text.split()) <= 1:
+        return
+    name = (message.text.split(None, 1)[1]).lower()
+    if name[0] == "s":
+        sudoers = await get_sudoers()
+        text = "⭐️<u> **Owners:**</u>\n"
+        sex = 0
+        for x in OWNER_ID:
+            try:
+                user = await app.get_users(x)
+                user = user.first_name if not user.mention else user.mention
+                sex += 1
+            except Exception:
+                continue
+            text += f"{sex}➤ {user}\n"
+        smex = 0
+        for count, user_id in enumerate(sudoers, 1):
+            if user_id not in OWNER_ID:
                 try:
-                    user = await app.get_users(x)
+                    user = await app.get_users(user_id)
                     user = user.first_name if not user.mention else user.mention
+                    if smex == 0:
+                        smex += 1
+                        text += "\n⭐️<u> **Sudo Users:**</u>\n"
                     sex += 1
+                    text += f"{sex}➤ {user}\n"
                 except Exception:
                     continue
-                text += f"{sex}➤ {user}\n"
-            smex = 0
-            for count, user_id in enumerate(sudoers, 1):
-                if user_id not in OWNER_ID:
-                    try:
-                        user = await app.get_users(user_id)
-                        user = user.first_name if not user.mention else user.mention
-                        if smex == 0:
-                            smex += 1
-                            text += "\n⭐️<u> **Sudo Users:**</u>\n"
-                        sex += 1
-                        text += f"{sex}➤ {user}\n"
-                    except Exception:
-                        continue
-            if not text:
-                await message.reply_text("No Sudo Users")
-            else:
-                await message.reply_text(text)
-            if await is_on_off(5):
-                sender_id = message.from_user.id
-                sender_name = message.from_user.first_name
-                umention = f"[{sender_name}](tg://user?id={int(sender_id)})"
-                return await LOG_CLIENT.send_message(
-                    LOG_GROUP_ID,
-                    f"{message.from_user.mention} has just started bot to check <code>SUDOLIST</code>\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
-                )
-        if name[0] == "i":
-            m = await message.reply_text("🔎 Fetching Info!")
-            query = (str(name)).replace("info_", "", 1)
-            query = f"https://www.youtube.com/watch?v={query}"
-            results = VideosSearch(query, limit=1)
-            for result in results.result()["result"]:
-                title = result["title"]
-                duration = result["duration"]
-                views = result["viewCount"]["short"]
-                thumbnail = result["thumbnails"][0]["url"].split("?")[0]
-                channellink = result["channel"]["link"]
-                channel = channel = result["channel"]["name"]
-                link = result["link"]
-                published = result["publishedTime"]
-            searched_text = f"""
+        if not text:
+            await message.reply_text("No Sudo Users")
+        else:
+            await message.reply_text(text)
+        if await is_on_off(5):
+            sender_id = message.from_user.id
+            sender_name = message.from_user.first_name
+            umention = f"[{sender_name}](tg://user?id={int(sender_id)})"
+            return await LOG_CLIENT.send_message(
+                LOG_GROUP_ID,
+                f"{message.from_user.mention} has just started bot to check <code>SUDOLIST</code>\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
+            )
+    if name[0] == "i":
+        m = await message.reply_text("🔎 Fetching Info!")
+        query = (str(name)).replace("info_", "", 1)
+        query = f"https://www.youtube.com/watch?v={query}"
+        results = VideosSearch(query, limit=1)
+        for result in results.result()["result"]:
+            title = result["title"]
+            duration = result["duration"]
+            views = result["viewCount"]["short"]
+            thumbnail = result["thumbnails"][0]["url"].split("?")[0]
+            channellink = result["channel"]["link"]
+            channel = channel = result["channel"]["name"]
+            link = result["link"]
+            published = result["publishedTime"]
+        searched_text = f"""
 🔍__**Video Track Information**__
 
 ❇️**Title:** {title}
@@ -318,24 +319,24 @@ async def start_command(_, message):
 🔗**Video Link:** [Link]({link})
 
 ⚡️ __Searched Powered By {BOT_NAME}__"""
-            key = InlineKeyboardMarkup(
+        key = InlineKeyboardMarkup(
+            [
                 [
-                    [
-                        InlineKeyboardButton(
-                            text="🎥 Watch Youtube Video", url=f"{link}"
-                        ),
-                        InlineKeyboardButton(text="🔄 Close", callback_data="close"),
-                    ],
-                ]
-            )
-            await m.delete()
-            await app.send_photo(
-                message.chat.id,
-                photo=thumbnail,
-                caption=searched_text,
-                parse_mode="markdown",
-                reply_markup=key,
-            )
+                    InlineKeyboardButton(
+                        text="🎥 Watch Youtube Video", url=f"{link}"
+                    ),
+                    InlineKeyboardButton(text="🔄 Close", callback_data="close"),
+                ],
+            ]
+        )
+        await m.delete()
+        await app.send_photo(
+            message.chat.id,
+            photo=thumbnail,
+            caption=searched_text,
+            parse_mode="markdown",
+            reply_markup=key,
+        )
 
 
 if __name__ == "__main__":

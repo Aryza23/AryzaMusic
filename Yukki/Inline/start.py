@@ -32,7 +32,7 @@ def start_pannel():
             [InlineKeyboardButton(text="🔧 Settings", callback_data="settingm")],
         ]
         return f"🎛  **This is {MUSIC_BOT_NAME}**", buttons
-    if not SUPPORT_CHANNEL and SUPPORT_GROUP:
+    if not SUPPORT_CHANNEL:
         buttons = [
             [
                 InlineKeyboardButton(
@@ -45,7 +45,7 @@ def start_pannel():
             ],
         ]
         return f"🎛  **This is {MUSIC_BOT_NAME}*", buttons
-    if SUPPORT_CHANNEL and not SUPPORT_GROUP:
+    if not SUPPORT_GROUP:
         buttons = [
             [
                 InlineKeyboardButton(
@@ -60,7 +60,7 @@ def start_pannel():
             ],
         ]
         return f"🎛  **This is {MUSIC_BOT_NAME}**", buttons
-    if SUPPORT_CHANNEL and SUPPORT_GROUP:
+    if SUPPORT_CHANNEL:
         buttons = [
             [
                 InlineKeyboardButton(
@@ -94,7 +94,7 @@ def private_panel():
             ],
         ]
         return f"🎛  **This is {MUSIC_BOT_NAME}**", buttons
-    if not SUPPORT_CHANNEL and SUPPORT_GROUP:
+    if not SUPPORT_CHANNEL:
         buttons = [
             [
                 InlineKeyboardButton(
@@ -112,7 +112,7 @@ def private_panel():
             ],
         ]
         return f"🎛  **This is {MUSIC_BOT_NAME}*", buttons
-    if SUPPORT_CHANNEL and not SUPPORT_GROUP:
+    if not SUPPORT_GROUP:
         buttons = [
             [
                 InlineKeyboardButton(
@@ -132,7 +132,7 @@ def private_panel():
             ],
         ]
         return f"🎛  **This is {MUSIC_BOT_NAME}**", buttons
-    if SUPPORT_CHANNEL and SUPPORT_GROUP:
+    if SUPPORT_CHANNEL:
         buttons = [
             [
                 InlineKeyboardButton(
