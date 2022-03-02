@@ -27,9 +27,7 @@ async def unban_assistant_(_, CallbackQuery):
             "Failed to unban",
             show_alert=True,
         )
-    return await CallbackQuery.edit_message_text(
-        "Assistant Unbanned. Try Playing Now."
-    )
+    return await CallbackQuery.edit_message_text("Assistant Unbanned. Try Playing Now.")
 
 
 def AssistantAdd(mystic):

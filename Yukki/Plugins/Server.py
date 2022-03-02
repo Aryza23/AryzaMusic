@@ -30,7 +30,6 @@ __MODULE__ = "Server"
 __HELP__ = """\x1f\x1f**Note:**\x1f**Only for Sudo Users**\x1f\x1f/get_log\x1f- Get log of last 100 lines from Heroku.\x1f\x1f/get_var\x1f- Get a config var from Heroku or .env.\x1f\x1f/del_var\x1f- Delete any var on Heroku or .env.\x1f\x1f/set_var [Var Name] [Value]\x1f- Set a Var or Update a Var on heroku or .env. Seperate Var and its Value with a space.\x1f\x1f/usage\x1f- Get Dyno Usage.\x1f\x1f/update\x1f- Update Your Bot.\x1f\x1f/restart \x1f- Restart Bot [All downloads, cache, raw files will be cleared too]. \x1f"""
 
 
-
 XCB = [
     "/",
     "@",
@@ -71,7 +70,7 @@ async def log_(client, message):
     if len(data) <= 1024:
         return await message.reply_text(data)
     link = await paste_queue(data)
-    url = f'{link}/index.txt'
+    url = f"{link}/index.txt"
     return await message.reply_text(
         f"Here is the Log of Your App[{HEROKU_APP_NAME}]\n\n[Click Here to checkout Logs]({url})"
     )
@@ -315,7 +314,7 @@ async def update_(client, message):
     _final_updates_ = _update_response_ + updates
     if len(_final_updates_) > 4096:
         link = await paste_queue(updates)
-        url = f'{link}/index.txt'
+        url = f"{link}/index.txt"
         nrs = await response.edit(
             f"<b>A new update is available for the Bot!</b>\n\n➣ Pushing Updates Now</code>\n\n**<u>Updates:</u>**\n\n[Click Here to checkout Updates]({url})"
         )

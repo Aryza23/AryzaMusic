@@ -322,9 +322,7 @@ async def start_command(_, message):
         key = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(
-                        text="🎥 Watch Youtube Video", url=f"{link}"
-                    ),
+                    InlineKeyboardButton(text="🎥 Watch Youtube Video", url=f"{link}"),
                     InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                 ],
             ]

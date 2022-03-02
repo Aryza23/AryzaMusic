@@ -103,7 +103,7 @@ async def stats_markup(_, CallbackQuery):
             cupc += f"Core {i}  : {percentage}%\n"
         cupc += "**Total CPU Usage:**\n"
         cupc += f"All Cores Usage: {psutil.cpu_percent()}%\n"
-        ram = f'{str(round(psutil.virtual_memory().total / (1024.0**3)))} GB'
+        ram = f"{str(round(psutil.virtual_memory().total / (1024.0**3)))} GB"
         bot_uptime = int(time.time() - boottime)
         uptime = f"{get_readable_time((bot_uptime))}"
         smex = f"""

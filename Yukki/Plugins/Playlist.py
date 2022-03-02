@@ -208,7 +208,9 @@ async def del_cmd(_, message):
                         f"**Deleted the {count} music in playlist**"
                     )
                 else:
-                    return await message.reply_text("**No such saved music in playlist.**")
+                    return await message.reply_text(
+                        "**No such saved music in playlist.**"
+                    )
         await message.reply_text("You have no such music in Playlist.")
 
 
@@ -249,7 +251,9 @@ async def delgroupplaylist(_, message):
                         f"**Deleted the {count} music in group's playlist**"
                     )
                 else:
-                    return await message.reply_text("**No such saved music in Group playlist.**")
+                    return await message.reply_text(
+                        "**No such saved music in Group playlist.**"
+                    )
         await message.reply_text("You have no such music in Playlist.")
 
 

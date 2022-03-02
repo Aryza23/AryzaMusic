@@ -178,9 +178,7 @@ async def play(_, message: Message):
                 "**No Limit Defined for Video Calls**\n\nSet a Limit for Number of Maximum Video Calls allowed on Bot by /set_video_limit [Sudo Users Only]"
             )
         count = len(await get_active_video_chats())
-        if int(count) == int(limit) and not await is_active_video_chat(
-            message.chat.id
-        ):
+        if int(count) == int(limit) and not await is_active_video_chat(message.chat.id):
             return await message.reply_text(
                 "Sorry! Bot only allows limited number of video calls due to CPU overload issues. Many other chats are using video call right now. Try switching to audio or try again later"
             )
