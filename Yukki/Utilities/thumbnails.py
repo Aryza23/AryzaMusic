@@ -10,8 +10,7 @@ def changeImageSize(maxWidth, maxHeight, image):
     heightRatio = maxHeight / image.size[1]
     newWidth = int(widthRatio * image.size[0])
     newHeight = int(heightRatio * image.size[1])
-    newImage = image.resize((newWidth, newHeight))
-    return newImage
+    return image.resize((newWidth, newHeight))
 
 
 async def gen_thumb(thumbnail, title, userid, theme, ctitle):
@@ -22,7 +21,7 @@ async def gen_thumb(thumbnail, title, userid, theme, ctitle):
                 await f.write(await resp.read())
                 await f.close()
     image1 = Image.open(f"cache/thumb{userid}.jpg")
-    image2 = Image.open(f"Utils/trpsnt.png")
+    image2 = Image.open("Utils/trpsnt.png")
     image3 = changeImageSize(1280, 720, image1)
     image4 = changeImageSize(1280, 720, image2)
     image5 = image3.convert("RGBA")
@@ -32,5 +31,4 @@ async def gen_thumb(thumbnail, title, userid, theme, ctitle):
     img.save(f"cache/final{userid}.png")
     os.remove(f"cache/temp{userid}.png")
     os.remove(f"cache/thumb{userid}.jpg")
-    final = f"cache/final{userid}.png"
-    return final
+    return f"cache/final{userid}.png"
