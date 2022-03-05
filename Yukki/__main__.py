@@ -88,13 +88,6 @@ async def initiate_bot():
             imported_module = importlib.import_module("Yukki.Plugins." + all_module)
             if hasattr(imported_module, "__MODULE__") and imported_module.__MODULE__:
                 imported_module.__MODULE__ = imported_module.__MODULE__
-            #    if (
-            #        hasattr(imported_module, "__HELP__")
-            #        and imported_module.__HELP__
-            #    ):
-            #        HELPABLE[
-            #            imported_module.__MODULE__.lower()
-            #        ] = imported_module
             console.print(
                 f">> [bold cyan]Successfully imported: [green]{all_module}.py"
             )
@@ -249,92 +242,6 @@ async def initiate_bot():
     await idle()
     console.print("\\n[red]Stopping Bot")
 
-
-@app.on_message(filters.command("start") & filters.private)
-async def start_command(_, message):
-    if len(message.text.split()) <= 1:
-        return
-    name = (message.text.split(None, 1)[1]).lower()
-    if name[0] == "s":
-        sudoers = await get_sudoers()
-        text = "⭐️<u> **Owners:**</u>\n"
-        sex = 0
-        for x in OWNER_ID:
-            try:
-                user = await app.get_users(x)
-                user = user.first_name if not user.mention else user.mention
-                sex += 1
-            except Exception:
-                continue
-            text += f"{sex}➤ {user}\n"
-        smex = 0
-        for count, user_id in enumerate(sudoers, 1):
-            if user_id not in OWNER_ID:
-                try:
-                    user = await app.get_users(user_id)
-                    user = user.first_name if not user.mention else user.mention
-                    if smex == 0:
-                        smex += 1
-                        text += "\n⭐️<u> **Sudo Users:**</u>\n"
-                    sex += 1
-                    text += f"{sex}➤ {user}\n"
-                except Exception:
-                    continue
-        if not text:
-            await message.reply_text("No Sudo Users")
-        else:
-            await message.reply_text(text)
-        if await is_on_off(5):
-            sender_id = message.from_user.id
-            sender_name = message.from_user.first_name
-            umention = f"[{sender_name}](tg://user?id={int(sender_id)})"
-            return await LOG_CLIENT.send_message(
-                LOG_GROUP_ID,
-                f"{message.from_user.mention} has just started bot to check <code>SUDOLIST</code>\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}",
-            )
-    if name[0] == "i":
-        m = await message.reply_text("🔎 Fetching Info!")
-        query = (str(name)).replace("info_", "", 1)
-        query = f"https://www.youtube.com/watch?v={query}"
-        results = VideosSearch(query, limit=1)
-        for result in results.result()["result"]:
-            title = result["title"]
-            duration = result["duration"]
-            views = result["viewCount"]["short"]
-            thumbnail = result["thumbnails"][0]["url"].split("?")[0]
-            channellink = result["channel"]["link"]
-            channel = channel = result["channel"]["name"]
-            link = result["link"]
-            published = result["publishedTime"]
-        searched_text = f"""
-🔍__**Video Track Information**__
-
-❇️**Title:** {title}
-
-⏳**Duration:** {duration} Mins
-👀**Views:** `{views}`
-⏰**Published Time:** {published}
-🎥**Channel Name:** {channel}
-📎**Channel Link:** [Visit From Here]({channellink})
-🔗**Video Link:** [Link]({link})
-
-⚡️ __Searched Powered By {BOT_NAME}__"""
-        key = InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(text="🎥 Watch Youtube Video", url=f"{link}"),
-                    InlineKeyboardButton(text="🔄 Close", callback_data="close"),
-                ],
-            ]
-        )
-        await m.delete()
-        await app.send_photo(
-            message.chat.id,
-            photo=thumbnail,
-            caption=searched_text,
-            parse_mode="markdown",
-            reply_markup=key,
-        )
 
 
 if __name__ == "__main__":
