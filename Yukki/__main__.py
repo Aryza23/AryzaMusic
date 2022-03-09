@@ -242,6 +242,50 @@ async def initiate_bot():
     await idle()
     console.print("\\n[red]Stopping Bot")
 
+@app.on_message(filters.command("start"))
+async def start_command(_, message):
+    if len(message.text.split()) <= 1:
+        return
+    name = (message.text.split(None, 1)[1]).lower()
+    if name[0] == "i":
+        m = await message.reply_text("🔎 Fetching Info!")
+        query = (str(name)).replace("info_", "", 1)
+        query = f"https://www.youtube.com/watch?v={query}"
+        results = VideosSearch(query, limit=1)
+        for result in results.result()["result"]:
+            title = result["title"]
+            duration = result["duration"]
+            views = result["viewCount"]["short"]
+            thumbnail = result["thumbnails"][0]["url"].split("?")[0]
+            channellink = result["channel"]["link"]
+            channel = channel = result["channel"]["name"]
+            link = result["link"]
+            published = result["publishedTime"]
+        searched_text = f"""
+🔍**Video Track Information**
+
+❇️**Title:** {title}
+⏳**Duration:** {duration} Mins
+👀**Views:** `{views}`
+⏰**Published Time:** {published}
+🎥**Channel Name:** {channel}
+📎**Channel Link:** [Visit From Here]({channellink})
+🔗**Video Link:** [Link]({link})
+
+⚡️ __Searched Powered By {BOT_NAME}__"""
+        key = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(text="🎥 Watch Youtube Video", url=f"{link}"),
+                    InlineKeyboardButton(text="🔄 Close", callback_data="close"),
+                ],
+            ]
+        )
+        await m.delete()
+        await app.send_photo(
+            message.chat.id,
+            photo=thumbnail,
+            caption=searched_text,
 
 if __name__ == "__main__":
     loop.run_until_complete(initiate_bot())
