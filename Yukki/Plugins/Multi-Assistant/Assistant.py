@@ -1,15 +1,17 @@
 from inspect import getfullargspec
 
 from pyrogram import Client, filters
-from pyrogram.types import Message
+from pyrogram.raw.functions.messages import DeleteHistory
+from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
+                            InlineKeyboardMarkup, InlineQueryResultArticle,
+                            InlineQueryResultPhoto, InputTextMessageContent,
+                            Message)
 
-from Yukki import ASSISTANT_PREFIX, BOT_USERNAME, LOG_GROUP_ID, MUSIC_BOT_NAME, SUDOERS
-from Yukki.Database import (
-    approve_pmpermit,
-    disapprove_pmpermit,
-    is_on_off,
-    is_pmpermit_approved,
-)
+from Yukki import (ASS_CLI_1, ASS_CLI_2, ASS_CLI_3, ASS_CLI_4, ASS_CLI_5,
+                   ASSISTANT_PREFIX, BOT_ID, BOT_USERNAME, LOG_GROUP_ID,
+                   MUSIC_BOT_NAME, SUDOERS, app)
+from Yukki.Database import (approve_pmpermit, disapprove_pmpermit, is_on_off,
+                            is_pmpermit_approved)
 
 flood = {}
 
@@ -22,7 +24,6 @@ flood = {}
     & ~filters.me
     & ~filters.bot
     & ~filters.via_bot
-    & ~filters.user("me")
     & ~filters.user(SUDOERS)
 )
 async def awaiting_message(client, message):
@@ -33,7 +34,7 @@ async def awaiting_message(client, message):
                 from_chat_id=message.from_user.id,
                 message_ids=message.message_id,
             )
-        except Exception:
+        except Exception as err:
             pass
     user_id = message.from_user.id
     if await is_pmpermit_approved(user_id):
@@ -59,14 +60,17 @@ async def awaiting_message(client, message):
 
 @Client.on_message(
     filters.command("approve", prefixes=ASSISTANT_PREFIX)
+    & filters.user("me")
+)
+@Client.on_message(
+    filters.command("approve", prefixes=ASSISTANT_PREFIX)
     & filters.user(SUDOERS)
-    & ~filters.user("me")
-    & ~filters.me
-    & ~filters.via_bot
 )
 async def pm_approve(client, message):
     if not message.reply_to_message:
-        return await eor(message, text="Reply to a user's message to approve.")
+        return await eor(
+            message, text="Reply to a user's message to approve."
+        )
     user_id = message.reply_to_message.from_user.id
     if await is_pmpermit_approved(user_id):
         return await eor(message, text="User is already approved to pm")
@@ -76,14 +80,17 @@ async def pm_approve(client, message):
 
 @Client.on_message(
     filters.command("disapprove", prefixes=ASSISTANT_PREFIX)
+    & filters.user("me")
+)
+@Client.on_message(
+    filters.command("disapprove", prefixes=ASSISTANT_PREFIX)
     & filters.user(SUDOERS)
-    & ~filters.user("me")
-    & ~filters.me
-    & ~filters.via_bot
 )
 async def pm_disapprove(client, message):
     if not message.reply_to_message:
-        return await eor(message, text="Reply to a user's message to disapprove.")
+        return await eor(
+            message, text="Reply to a user's message to disapprove."
+        )
     user_id = message.reply_to_message.from_user.id
     if not await is_pmpermit_approved(user_id):
         await eor(message, text="User is already disapproved to pm")
@@ -100,10 +107,11 @@ async def pm_disapprove(client, message):
 
 @Client.on_message(
     filters.command("block", prefixes=ASSISTANT_PREFIX)
+    & filters.user("me")
+)
+@Client.on_message(
+    filters.command("block", prefixes=ASSISTANT_PREFIX)
     & filters.user(SUDOERS)
-    & ~filters.user("me")
-    & ~filters.me
-    & ~filters.via_bot
 )
 async def block_user_func(client, message):
     if not message.reply_to_message:
@@ -115,14 +123,17 @@ async def block_user_func(client, message):
 
 @Client.on_message(
     filters.command("unblock", prefixes=ASSISTANT_PREFIX)
+    & filters.user("me")
+)
+@Client.on_message(
+    filters.command("unblock", prefixes=ASSISTANT_PREFIX)
     & filters.user(SUDOERS)
-    & ~filters.user("me")
-    & ~filters.me
-    & ~filters.via_bot
 )
 async def unblock_user_func(client, message):
     if not message.reply_to_message:
-        return await eor(message, text="Reply to a user's message to unblock.")
+        return await eor(
+            message, text="Reply to a user's message to unblock."
+        )
     user_id = message.reply_to_message.from_user.id
     await client.unblock_user(user_id)
     await eor(message, text="Successfully Unblocked the user")
@@ -130,10 +141,11 @@ async def unblock_user_func(client, message):
 
 @Client.on_message(
     filters.command("pfp", prefixes=ASSISTANT_PREFIX)
+    & filters.user("me")
+)
+@Client.on_message(
+    filters.command("pfp", prefixes=ASSISTANT_PREFIX)
     & filters.user(SUDOERS)
-    & ~filters.user("me")
-    & ~filters.me
-    & ~filters.via_bot
 )
 async def set_pfp(client, message):
     if not message.reply_to_message or not message.reply_to_message.photo:
@@ -148,20 +160,24 @@ async def set_pfp(client, message):
 
 @Client.on_message(
     filters.command("bio", prefixes=ASSISTANT_PREFIX)
+    & filters.user("me")
+)
+@Client.on_message(
+    filters.command("bio", prefixes=ASSISTANT_PREFIX)
     & filters.user(SUDOERS)
-    & ~filters.user("me")
-    & ~filters.me
-    & ~filters.via_bot
 )
 async def set_bio(client, message):
-    if len(message.command) == 1 or len(message.command) <= 1:
+    if len(message.command) == 1:
         return await eor(message, text="Give some text to set as bio.")
-    bio = message.text.split(None, 1)[1]
-    try:
-        await client.update_profile(bio=bio)
-        await eor(message, text="Changed Bio.")
-    except Exception as e:
-        await eor(message, text=e)
+    elif len(message.command) > 1:
+        bio = message.text.split(None, 1)[1]
+        try:
+            await client.update_profile(bio=bio)
+            await eor(message, text="Changed Bio.")
+        except Exception as e:
+            await eor(message, text=e)
+    else:
+        return await eor(message, text="Give some text to set as bio.")
 
 
 async def eor(msg: Message, **kwargs):
