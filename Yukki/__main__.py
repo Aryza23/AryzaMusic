@@ -242,6 +242,7 @@ async def initiate_bot():
     await idle()
     console.print("\\n[red]Stopping Bot")
 
+
 @app.on_message(filters.command("start"))
 async def start_command(_, message):
     if len(message.text.split()) <= 1:
@@ -285,7 +286,9 @@ async def start_command(_, message):
         await app.send_photo(
             message.chat.id,
             photo=thumbnail,
-            caption=searched_text,)
+            caption=searched_text,
+        )
+
 
 if __name__ == "__main__":
     loop.run_until_complete(initiate_bot())
