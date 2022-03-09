@@ -285,7 +285,7 @@ async def start_command(_, message):
         await app.send_photo(
             message.chat.id,
             photo=thumbnail,
-            caption=searched_text,
+            caption=searched_text,)
 
 if __name__ == "__main__":
     loop.run_until_complete(initiate_bot())
