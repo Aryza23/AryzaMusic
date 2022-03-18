@@ -52,7 +52,7 @@ from Yukki.Utilities.youtube import (
 
 loop = asyncio.get_event_loop()
 BANNED_USERS = {int(x) for x in os.getenv("BANNED_USERS", "").split()}
-UPDATES_CHANNEL = "SatanicSociety"
+UPDATES_CHANNEL = "RyoAsukaMusicCache"
 
 
 @app.on_message(filters.command(["play", f"play@{BOT_USERNAME}"]) & filters.group)
@@ -69,7 +69,7 @@ async def play(_, message: Message):
     if chat_id in BANNED_USERS:
         await app.send_message(
             chat_id,
-            text="**❌ Anda telah di ban\\nUntuk menggunakan bot anda harus join di [Group](https://t.me/SatanicSociety)**",
+            text="**❌ Anda telah di ban\\nUntuk menggunakan bot anda harus join di [Group](https://t.me/RyoAsukaMusicCache)**",
             reply_to_message_id=message.message_id,
         )
 
@@ -80,7 +80,7 @@ async def play(_, message: Message):
             if user.status == "kicked":
                 await app.send_message(
                     chat_id,
-                    text="**❌ Anda telah di ban\\nUbtuk menggunakan bot anda harus join di [Group](https://t.me/SatanicSociety)**",
+                    text="**❌ Anda telah di ban\\nUntuk menggunakan bot anda harus join di [Group](https://t.me/RyoAsukaMusicCache)**",
                     parse_mode="markdown",
                     disable_web_page_preview=True,
                 )
@@ -94,8 +94,8 @@ async def play(_, message: Message):
                     [
                         [
                             InlineKeyboardButton(
-                                "Join Support",
-                                url="https://t.me/SatanicSociety",
+                                "Click Here!",
+                                url="https://t.me/RyoAsukaMusicCache",
                             )
                         ]
                     ]
